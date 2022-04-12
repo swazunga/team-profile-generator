@@ -1,17 +1,8 @@
-class Employee {
-  constructor(name) {
-    this.name = name;
-    this.id = id;
-    this.email = email;
-  }
+const Employee = require("../lib/Employee");
+console.log("test");
 
-  getName() {
-    if (name === "") {
-      return false;
-    } else {
-      return true;
-    }
-  }
-}
+test("creates an employee name", () => {
+  const employee = new Employee("Dave");
 
-module.exports = Employee;
+  expect(employee.getName()).toBe("Dave");
+});
