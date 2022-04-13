@@ -74,7 +74,6 @@ const internQs = [
 ];
 
 inquirer.prompt(questions).then((answers) => {
-  console.log(answers);
   const manager = new Manager(
     answers.managerName,
     answers.managerId,
@@ -99,7 +98,7 @@ function askForNext() {
     if (answer === "Intern") {
       inquirer.prompt(internQs);
     } else {
-      return;
+      console.log("else");
     }
   });
 }
