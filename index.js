@@ -2,6 +2,8 @@ const inquirer = require("inquirer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
+const fs = require("fs");
+const generateMarkup = require("./generateMarkup");
 
 let teamArray = [];
 
@@ -73,32 +75,51 @@ const internQs = [
   },
 ];
 
-inquirer.prompt(questions).then((answers) => {
-  const manager = new Manager(
-    answers.managerName,
-    answers.managerId,
-    answers.managerEmail,
-    answers.managerOffice
-  );
-  console.log(manager);
-  teamArray.push(manager);
-  askForNext();
-});
-
-function askForNext() {
-  inquirer.prompt(question2).then((answer) => {
-    console.log(answer);
-    if (answer === "Engineer") {
-      inquirer.prompt(engineerQs).then((answers) => {
-        const engineer = new Engineer(answers.name, answers.id, answers.github);
-        teamArray.push(engineer);
-        askForNext();
-      });
-    }
-    if (answer === "Intern") {
-      inquirer.prompt(internQs);
-    } else {
-      console.log("else");
-    }
-  });
+function writeToFile(fileName, data) {
+  return fs.writeFileSync(path.join(process.cwd(), fileName), data);
 }
+function init() {
+  inquirer.prompt(questions).then((answers) => {
+    const manager = new Manager(
+      answers.managerName,
+      answers.managerId,
+      answers.managerEmail,
+      answers.managerOffice
+    );
+    console.log(manager);
+    teamArray.push(manager);
+    askForNext();
+  });
+
+  function askForNext() {
+    inquirer.prompt(question2).then((answer) => {
+      console.log(answer);
+      if (answer.addAnother === "Engineer") {
+        inquirer.prompt(engineerQs).then((answers) => {
+          const engineer = new Engineer(
+            answers.name,
+            answers.id,
+            answers.github
+          );
+          teamArray.push(engineer);
+          askForNext();
+        });
+      }
+      if (answer.addAnother === "Intern") {
+        inquirer.prompt(internQs).then((answers) => {
+          const intern = new Intern(
+            answers.name,
+            answers.email,
+            answers.school
+          );
+          teamArray.push(intern);
+          askForNext();
+        });
+      } else {
+        writeToFile("TeamPage.html", generateMarkup({}));
+      }
+    });
+  }
+}
+
+init();
