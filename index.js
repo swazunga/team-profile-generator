@@ -3,9 +3,12 @@ const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 const fs = require("fs");
+const path = require("path");
 const generateMarkup = require("./generateMarkup");
 
 let teamArray = [];
+
+// Need to apply something that will not allow duplicate IDs
 
 const questions = [
   {
@@ -52,6 +55,11 @@ const engineerQs = [
   },
   {
     type: "input",
+    name: "email",
+    message: "What is the engineer's email address?",
+  },
+  {
+    type: "input",
     name: "github",
     message: "What is the engineer's GitHub username?",
   },
@@ -62,6 +70,11 @@ const internQs = [
     type: "input",
     name: "name",
     message: "What is the intern's name?",
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "What is the intern's employee ID #?",
   },
   {
     type: "input",
@@ -99,6 +112,7 @@ function init() {
           const engineer = new Engineer(
             answers.name,
             answers.id,
+            answers.email,
             answers.github
           );
           teamArray.push(engineer);
@@ -109,6 +123,7 @@ function init() {
         inquirer.prompt(internQs).then((answers) => {
           const intern = new Intern(
             answers.name,
+            answers.id,
             answers.email,
             answers.school
           );
@@ -116,7 +131,9 @@ function init() {
           askForNext();
         });
       } else {
-        writeToFile("TeamPage.html", generateMarkup({}));
+        writeToFile("TeamPage.html", generateMarkup(teamArray), function (err) {
+          if (err) throw err;
+        });
       }
     });
   }
