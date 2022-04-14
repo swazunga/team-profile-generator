@@ -1,4 +1,22 @@
 h1 {
   color: blue;
   font-size: 48px;
+  text-align: center;
+  background-color: darkgray;
+}
+
+.all-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.employee-cards {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 20vw;
+}
+
+.container {
+  padding: 2px 16px;
 }
