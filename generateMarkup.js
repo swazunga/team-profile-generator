@@ -7,7 +7,7 @@ function teamMemberCard(data) {
     <h2>${member.getRole()}</h2>
     <h3> ID: ${member.getId()}</h3>
     <h3>Email: ${member.getEmail()}</h3>
-    <h3>${teamMemberGithub(member.github)}</h3>
+    <h3>${teamMemberGithub(member)}</h3>
        </div>
        </div>
     `;
