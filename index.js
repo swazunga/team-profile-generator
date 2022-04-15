@@ -99,14 +99,12 @@ function init() {
       answers.managerEmail,
       answers.managerOffice
     );
-    console.log(manager);
     teamArray.push(manager);
     askForNext();
   });
 
   function askForNext() {
     inquirer.prompt(question2).then((answer) => {
-      console.log(answer);
       if (answer.addAnother === "Engineer") {
         inquirer.prompt(engineerQs).then((answers) => {
           const engineer = new Engineer(

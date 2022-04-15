@@ -1,4 +1,5 @@
 function teamMemberCard(data) {
+  console.log(data);
   let divArray = [];
   for (let member of data) {
     let div = `
