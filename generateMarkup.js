@@ -7,7 +7,7 @@ function teamMemberCard(data) {
     <h2>${member.getRole()}</h2>
     <h3> ID: ${member.getId()}</h3>
     <h3>Email: ${member.getEmail()}</h3>
-    <h3>${teamMemberGithub()}</h3>
+    <h3>${teamMemberGithub(member.github)}</h3>
        </div>
        </div>
     `;
@@ -16,17 +16,17 @@ function teamMemberCard(data) {
   }
 }
 
-function teamMemberGithub(data) {
-  for (let member of data) {
-    if (`${member.getRole()}` === "Manager") {
-      let extra = `Office #: ${member.officeNumber}`;
-    } else if (`${member.getRole()}` === "Engineer") {
-      let extra = `GitHub: ${member.github}`;
-    } else {
-      let extra = `School: ${member.school}`;
-    }
+function teamMemberGithub(member) {
+  // for (let member of data) {
+  if (`${member.getRole()}` === "Manager") {
+    let extra = `Office #: ${member.officeNumber}`;
+  } else if (`${member.getRole()}` === "Engineer") {
+    let extra = `GitHub: ${member.github}`;
+  } else {
+    let extra = `School: ${member.school}`;
   }
 }
+// }
 
 function generateMarkup(data) {
   const teamCards = teamMemberCard(data);
