@@ -11,18 +11,17 @@ function teamMemberCard(data) {
        </div>
     `;
     divArray.push(div);
-    console.log(member);
   }
 
-  // function teamMemberGithub(data) {
-  //   if (data.getRole() === Manager) {
-  //     `Office #: ${data.managerOffice}`;
-  //   } else if (data.getRole() === Engineer) {
-  //     `GitHub: ${data.github}`;
-  //   } else {
-  //     `School: ${data.school}`;
-  //   }
-  // }
+  function teamMemberGithub(data) {
+    if (data.getRole() === Manager) {
+      `Office #: ${data.managerOffice}`;
+    } else if (data.getRole() === Engineer) {
+      `GitHub: ${data.github}`;
+    } else {
+      `School: ${data.school}`;
+    }
+  }
 
   console.log(divArray);
   return divArray.join("");
@@ -30,7 +29,7 @@ function teamMemberCard(data) {
 
 function generateMarkup(data) {
   const teamCards = teamMemberCard(data);
-  // const lastLine = teamMemberGithub(data);
+  const lastLine = teamMemberGithub(data);
   return `<!DOCTYPE html>
   <html lang="en">
   <head>
