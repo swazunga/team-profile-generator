@@ -1,37 +1,49 @@
 function teamMemberCard(data) {
-  console.log(data);
   let divArray = [];
+  let div;
   for (let member of data) {
-    let div = `
-    <div class="employee-cards">
-    <div class="container"><h2>${member.name}</h2>
-    <h2>${member.getRole()}</h2>
-    <h3> ID: ${member.getId()}</h3>
-    <h3>Email: ${member.getEmail()}</h3>
-    <h3>${teamMemberGithub(member)}</h3>
-       </div>
-       </div>
-    `;
+    if (member.getRole() === "Manager") {
+      div = `
+      <div class="employee-cards">
+      <div class="container"><h2>${member.name}</h2>
+      <h2>${member.getRole()}</h2>
+      <h3> ID: ${member.getId()}</h3>
+      <h3>Email: ${member.getEmail()}</h3>
+      <h3>Office #: ${member.officeNumber}</h3>
+         </div>
+         </div>
+      `;
+    }
+    if (member.getRole() === "Engineer") {
+      div = `
+      <div class="employee-cards">
+      <div class="container"><h2>${member.name}</h2>
+      <h2>${member.getRole()}</h2>
+      <h3> ID: ${member.getId()}</h3>
+      <h3>Email: ${member.getEmail()}</h3>
+      <h3>Github: ${member.github}</h3>
+         </div>
+         </div>`;
+    }
+    if (member.getRole() === "Intern") {
+      div = `
+      <div class="employee-cards">
+      <div class="container"><h2>${member.name}</h2>
+      <h2>${member.getRole()}</h2>
+      <h3> ID: ${member.getId()}</h3>
+      <h3>Email: ${member.getEmail()}</h3>
+      <h3>School: ${member.getSchool()}</h3>
+         </div>
+         </div>
+      `;
+    }
     divArray.push(div);
-    return divArray.join("");
   }
+  return divArray.join("");
 }
-
-function teamMemberGithub(member) {
-  // for (let member of data) {
-  if (`${member.getRole()}` === "Manager") {
-    let extra = `Office #: ${member.officeNumber}`;
-  } else if (`${member.getRole()}` === "Engineer") {
-    let extra = `GitHub: ${member.github}`;
-  } else {
-    let extra = `School: ${member.school}`;
-  }
-}
-// }
 
 function generateMarkup(data) {
   const teamCards = teamMemberCard(data);
-  const lastLine = teamMemberGithub(data);
   return `<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -45,7 +57,7 @@ function generateMarkup(data) {
       <h1>My Team</h1>
       <div class="all-cards">
        ${teamCards}
-       ${lastLine}
+       
       </div>
   </body>
   </html>
